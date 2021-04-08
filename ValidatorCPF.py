@@ -1,56 +1,17 @@
+from random import randint
+from functionValidator import functionValidator
+
 def validarCpf():
-    cpf = input("Digite o cpf: ")
-    cpfSemPontos = cpf.replace("+", "").replace("!", "").replace("@", "").replace("#", "").replace("$", "").replace("%",
-        "").replace("¨", "").replace("&", "").replace("*", "").replace("(", "").replace(")", "").replace("_",
-            "").replace("=", "").replace("§", "").replace("´", "").replace("`", "").replace("{", "").replace("}",
-                 "").replace("ª", "").replace("[", "").replace("]", "").replace("º", "").replace("~", "").replace("^",
-                      "").replace(":", "").replace(";", "").replace("/", "").replace("?", "").replace("°", "")
-    cpfNew = cpfSemPontos[:-2]
-    reverse = 1
-    total_result = []
-    soma_valor = 0
-
-    if not cpfSemPontos.isdigit():
-        print("Por favor digite apenas numero")
-        exit()
-
-
-    for cpf in cpfSemPontos[:-2]:
-        result = (int(cpf) * int(reverse))
-        total_result.append(result)
-        reverse += 1
-
-    for valor in total_result:
-        soma_valor += valor
-
-    total_result = []
-
-    account = (soma_valor % 11)
-    if account == 10:
-        cpfNew += "0"
+    gerarCpf = input("Do you want to generate a CPF?(Y/N)")
+    if gerarCpf.upper() == 'Y':
+        cpf = randint(10000000000, 99999999900)
+        print(f"CPF generate: {cpf}")
+        functionValidator(cpf)
+    elif gerarCpf.upper() == "N":
+        cpf = input("Enter the cpf: ")
+        functionValidator(cpf)
     else:
-        cpfNew += f"{account}"
-
-    reverse = 0
-
-    for cpf in cpfNew:
-        result = (int(cpf) * int(reverse))
-        total_result.append(result)
-        reverse += 1
-
-    soma_valor = 0
-    for valor in total_result:
-        soma_valor += valor
-
-    account = (soma_valor % 11)
-    cpfNew += f"{account}"
-
-    sequence = cpfNew == str(cpfNew[0]) * 11
-
-    if cpfNew == cpfSemPontos and not sequence:
-        print("CPF valido")
-    else:
-        print("CPF invalido")
+        print("Type only y(ysm) or N(no)")
 
 
 validarCpf()
