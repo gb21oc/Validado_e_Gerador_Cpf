@@ -1,10 +1,19 @@
 def validarCpf():
     cpf = input("Digite o cpf: ")
-    cpfSemPontos = cpf.replace(".", "").replace("-", "")
+    cpfSemPontos = cpf.replace("+", "").replace("!", "").replace("@", "").replace("#", "").replace("$", "").replace("%",
+        "").replace("¨", "").replace("&", "").replace("*", "").replace("(", "").replace(")", "").replace("_",
+            "").replace("=", "").replace("§", "").replace("´", "").replace("`", "").replace("{", "").replace("}",
+                 "").replace("ª", "").replace("[", "").replace("]", "").replace("º", "").replace("~", "").replace("^",
+                      "").replace(":", "").replace(";", "").replace("/", "").replace("?", "").replace("°", "")
     cpfNew = cpfSemPontos[:-2]
     reverse = 1
     total_result = []
     soma_valor = 0
+
+    if not cpfSemPontos.isdigit():
+        print("Por favor digite apenas numero")
+        exit()
+
 
     for cpf in cpfSemPontos[:-2]:
         result = (int(cpf) * int(reverse))
@@ -36,7 +45,9 @@ def validarCpf():
     account = (soma_valor % 11)
     cpfNew += f"{account}"
 
-    if cpfNew == cpfSemPontos:
+    sequence = cpfNew == str(cpfNew[0]) * 11
+
+    if cpfNew == cpfSemPontos and not sequence:
         print("CPF valido")
     else:
         print("CPF invalido")
